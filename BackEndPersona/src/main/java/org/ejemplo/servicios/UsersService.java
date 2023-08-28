@@ -31,7 +31,7 @@ public class UsersService {
         return usuarioRepository.findAll();
     }
 
-    public void borrarUsuarios(String user){
+    public void borrarUsuarios(Long user){
         if (usuarioRepository.existsById(user)){
             usuarioRepository.deleteById(user);
         }
@@ -39,14 +39,15 @@ public class UsersService {
     }
 
     public String login(Login login){
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(login.getUser());
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(login.getEmail());
         if (optionalUsuario.isPresent()){
             Usuario usuario = optionalUsuario.get();
             if (usuario.getPassword().equals(login.getPassword())){
-                return usuario.getRole();
+                return usuario.getSurname();
             }
         }
-        return String.format("Error, Tus datos de inicio de session son invalidos", login.getUser());
+        return String.format("Error, Tus datos de inicio de session son invalidos", login.getId());
+
     }
 
 
