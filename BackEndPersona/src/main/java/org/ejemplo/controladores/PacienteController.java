@@ -25,6 +25,7 @@ public class PacienteController {
     @PostMapping("/registryPaciente")
     public ResponseEntity<String> createPaciente(@RequestBody Paciente paciente){
         try{
+            log.info("Aqui llega {}",paciente);
             String respuesta = service.guardarPaciente(paciente);
             log.info("Paciente creado de forma correcta {}", paciente.getEmail());
             return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -38,16 +39,8 @@ public class PacienteController {
     }
 
     @GetMapping("/getAllPaciente")
-    public ResponseEntity<List<Paciente>> getAll(){
+    public ResponseEntity<List<Paciente>> mostrarTodosLosPacientes(){
         return ResponseEntity.ok(service.retornarPaciente());
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody Login login) {
-//        String respuesta = service.login(login);
-//        if (respuesta.contains("Error")){
-//            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(respuesta);
-//        }
-//        return ResponseEntity.ok(respuesta);
-//    }
 }

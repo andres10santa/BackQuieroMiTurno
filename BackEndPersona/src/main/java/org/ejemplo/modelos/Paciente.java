@@ -21,7 +21,5 @@ public class Paciente extends Usuario{
     private String socialWork;
     @Column(name="codeSocialWork")
     private String codeSocialWork;
-    @Column(name = "nombreUsuario")
-    private String nombreUsuario;
 
 }

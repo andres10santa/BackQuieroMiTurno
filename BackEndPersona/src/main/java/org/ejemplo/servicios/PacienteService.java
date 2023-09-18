@@ -37,16 +37,6 @@ public class PacienteService {
         log.warn("El usuario %s no existe y no lo podemos borrar", user);
     }
 
-//    public String login(Login login){
-//        Optional<Paciente> optionalPaciente = pacienteRepository.findById(login.getEmail());
-//        if (optionalPaciente.isPresent()){
-//            Paciente paciente = optionalPaciente.get();
-//            if (paciente.getPassword().equals(login.getPassword())){
-//                return paciente.getRole();
-//            }
-//        }
-//        return String.format("Error, Tus datos de inicio de session son invalidos", login.getEmail());
-//    }
 
 
     private Paciente getUser(String userName){
@@ -56,5 +46,8 @@ public class PacienteService {
             }
         }
         return null;
+    }
+    public List<Paciente> mostrarTodosLosPacientes() {
+        return pacienteRepository.findAll();
     }
 }
