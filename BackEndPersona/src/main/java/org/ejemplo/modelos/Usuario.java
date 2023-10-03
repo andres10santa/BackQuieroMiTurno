@@ -16,9 +16,11 @@ public class Usuario {
     private Long id;
     @Column(name = "email")
     private String email;
+    @Column(name = "name")
+    private String name;
     @Column (name = "surname")
     private String surname;
-    @Column (name = "gender")
+    @Column (name = "gener")
     private String gener;
     @Column(name = "address")
     private String address;
@@ -28,4 +30,5 @@ public class Usuario {
     private String password;
     @Column(name = "role")
     private String role;
+
 }
