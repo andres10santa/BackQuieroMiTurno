@@ -1,18 +1,11 @@
 package org.ejemplo.modelos;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="pacientes")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-
+@PrimaryKeyJoinColumn(name = "id")
 public class Paciente extends Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +15,21 @@ public class Paciente extends Usuario{
     @Column(name="codeSocialWork")
     private String codeSocialWork;
 
+
+    //Getter y Setter
+    public String getsocialWork() {
+        return socialWork;
+    }
+
+    public void setsocialWork(String socialWork) {
+        this.socialWork = socialWork;
+    }
+
+    public String getcodeSocialWork() {
+        return codeSocialWork;
+    }
+
+    public void setcodeSocialWork(String codeSocialWork) {
+        this.codeSocialWork = codeSocialWork;
+    }
 }

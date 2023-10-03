@@ -1,7 +1,26 @@
 package org.ejemplo.modelos;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name="doctores")
+@PrimaryKeyJoinColumn(name = "id")
 public class Doctor extends Usuario {
   @Id
- private String tuition;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+    @Column(name="tuition")
+    private Long tuition;
+
+
+    //Getter y Setter
+  public Long getTuition() {
+    return tuition;
+  }
+
+  public void setTuition(Long tuition) {
+    this.tuition = tuition;
+  }
 
 }
