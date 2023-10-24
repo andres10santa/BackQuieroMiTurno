@@ -8,7 +8,7 @@ import org.ejemplo.modelos.Usuario;
 import org.ejemplo.validations.UserValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.ejemplo.repository.UsuarioRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,12 @@ public class UsersService {
         if (optionalUsuario.isPresent()){
             Usuario usuario = optionalUsuario.get();
             if (usuario.getPassword().equals(login.getPassword())){
+                // Generar un token JWT para el usuario
+                String token = generateToken(usuario);
+
+                // Almacenar el token en el cliente
+                // ...
+
                 return usuario.getSurname();
             }
         }
@@ -58,5 +64,36 @@ public class UsersService {
             }
         }
         return null;
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario getUsuarioByToken(String token) {
+        // Validar el token
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+        DecodedJWT decodedJWT = JWT.decode(token, algorithm);
+
+        // Verificar que el token no haya caducado
+        Date expiresAt = decodedJWT.getClaim("expires_at").asDate();
+        if (expiresAt.before(new Date())) {
+            throw new UnauthorizedException("Invalid token");
+        }
+
+        // Verificar que el token sea válido para el usuario
+        int userId = decodedJWT.getClaim("user_id").asInt();
+        Usuario usuario = usuarioRepository.findById(userId).orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+
+        return usuario;
+    }
+
+    private String generateToken(Usuario usuario) {
+        // Generar un token JWT para el usuario
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+        String token = JWT.create()
+                .withClaim("user_id", usuario.getId())
+                .withClaim("username", usuario.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
+                .sign(algorithm);
+
+        return token;
     }
 }
