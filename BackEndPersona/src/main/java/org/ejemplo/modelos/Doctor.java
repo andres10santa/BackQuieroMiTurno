@@ -12,6 +12,8 @@ public class Doctor extends Usuario {
   private Long id;
     @Column(name="tuition")
     private Long tuition;
+    @Column(name="specialty")
+    private String specialty;
 
 
     //Getter y Setter

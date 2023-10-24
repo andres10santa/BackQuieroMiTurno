@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/turnos")
+
 public class TurnoController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class TurnoController {
     @PostMapping("/createTurno")
     public ResponseEntity<String> createTurno(@RequestBody Turno turno) {
         try{
-            String respuesta = TurnoService.guardarTurno(turno);
+            String respuesta = turnoService.guardarTurno(turno);
             log.info("Turno creado de forma correcta {}", turno.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
         } catch (TurnoException e){
@@ -32,10 +32,10 @@ public class TurnoController {
             log.error("Error: ",e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ups!!! Algo salio mal, nuestro desarrolladores estan trabajando para solucionarlo");
         }
-        // Luego, puedes crear el turno
-       // turno = turnoService.createTurno(turno.getPaciente(), turno.getDoctor(), turno.getFechaTurno());
-
-       // return ResponseEntity.ok("Turno creado con éxito. ID: " + turno.getId());
+//         Luego, puedes crear el turno
+//        turno = turnoService.createTurno(turno.getPaciente(), turno.getDoctor(), turno.getFechaTurno());
+//
+//        return ResponseEntity.ok("Turno creado con éxito. ID: " + turno.getId());
     }
 
     @GetMapping("/getAllTurno")

@@ -31,39 +31,7 @@ public class Turno {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime fechaGuardado;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaTurno;
+    @Column(name = "fechaTurno")
+    private String fechaTurno;
 
-
-    // getters y setters
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-    public Doctor getDoctor() {
-        return doctor;
-    }
-    public void setFechaGuardado(LocalDateTime fechaGuardado) {
-        this.fechaGuardado = fechaGuardado;
-    }
-    public LocalDateTime getFechaGuardado() {
-        return fechaGuardado;
-    }
-    public void setFechaTurno(Date fechaTurno) {
-        this.fechaTurno = fechaTurno;
-    }
-    public Date getFechaTurno() {
-        return fechaTurno;
-    }
-
-    public String getId() {
-        return null;
-    }
 }

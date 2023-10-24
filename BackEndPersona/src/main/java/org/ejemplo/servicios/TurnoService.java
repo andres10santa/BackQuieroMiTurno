@@ -27,12 +27,12 @@ public class TurnoService {
         this.turnoRepository = turnoRepository;
     }
 
-    public static Turno createTurno(Paciente paciente, Doctor doctor, Date fechaTurno, LocalDateTime fechaGuardado) throws TurnoException {
+    public  Turno createTurno(Paciente paciente, Doctor doctor, Date fechaTurno, LocalDateTime fechaGuardado) throws TurnoException {
         Turno turno = new Turno();
         turno.setPaciente(paciente);
         turno.setDoctor(doctor);
         turno.setFechaGuardado(fechaGuardado); // Fecha actual
-        turno.setFechaTurno(fechaTurno);
+        turno.setFechaTurno(String.valueOf(fechaTurno));
         return turnoRepository.save(turno);
     }
 
