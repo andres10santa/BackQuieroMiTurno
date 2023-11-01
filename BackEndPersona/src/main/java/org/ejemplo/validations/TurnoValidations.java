@@ -10,9 +10,9 @@ import java.util.List;
 public class TurnoValidations {
 
     public static void validateTurnoForCreation(List<Turno> turnos, Turno turno) throws TurnoException {
-        if (turno.getFechaTurno() != null) {
-            throw new TurnoException(HttpStatus.PRECONDITION_FAILED, "Error en el turno", "Ya existe un turno para esta fecha");
-        }
+//        if (turno.getFechaTurno() != null) {
+//            throw new TurnoException(HttpStatus.PRECONDITION_FAILED, "Error en el turno", "Ya existe un turno para esta fecha");
+//        }
 
         if (validateExistTurno(turnos, turno.getFechaTurno())) {
             throw new TurnoException(HttpStatus.PRECONDITION_FAILED, "No se puede ingresar el turno " + turno.getFechaTurno(), "El Turno ya se encuentra cargado");
