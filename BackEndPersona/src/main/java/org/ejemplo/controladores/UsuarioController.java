@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ejemplo.exception.UserException;
 import org.ejemplo.modelos.Login;
 import org.ejemplo.modelos.Usuario;
+import org.ejemplo.modelos.dto.LoginDTO;
 import org.ejemplo.servicios.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,12 +43,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Login login) {
-        String respuesta = service.login(login);
-        if (respuesta.contains("Error")){
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(respuesta);
+    public ResponseEntity<LoginDTO> login(@RequestBody Login login) {
+        try {
+            return ResponseEntity.ok(service.login(login));
+        } catch (UserException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(null);
         }
-        return ResponseEntity.ok(respuesta);
     }
 
 }

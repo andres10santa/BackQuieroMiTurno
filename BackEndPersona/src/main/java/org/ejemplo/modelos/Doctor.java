@@ -1,11 +1,19 @@
 package org.ejemplo.modelos;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name="doctores")
 @PrimaryKeyJoinColumn(name = "id")
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Doctor extends Usuario {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +22,10 @@ public class Doctor extends Usuario {
     private Long tuition;
     @Column(name="specialty")
     private String specialty;
+
+    public Doctor(Long id){
+      this.id = id;
+    }
 
 
     //Getter y Setter

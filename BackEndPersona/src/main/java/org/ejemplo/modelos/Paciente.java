@@ -1,7 +1,9 @@
 package org.ejemplo.modelos;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -10,6 +12,8 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Paciente extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +25,10 @@ public class Paciente extends Usuario {
     @Column(name = "idPaciente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaciente;  // Clave primaria autogenerada
+
+
+    public Paciente(Long id){
+        this.id = id;
+    }
 }
 

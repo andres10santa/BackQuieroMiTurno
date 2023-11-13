@@ -1,18 +1,11 @@
 package org.ejemplo.exception;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.ejemplo.exception.ValidationException;
 import org.springframework.http.HttpStatus;
 
-@Getter
-@Setter
-public class UserException extends Exception {
-    private HttpStatus statusCode;
-    private String causa;
+public class UserException extends ValidationException {
 
     public UserException(HttpStatus status, String message, String cause) {
-        super(message);
-        this.causa = cause;
-        this.statusCode = status;
+        super(status, message, cause);
     }
 }

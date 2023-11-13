@@ -5,12 +5,14 @@ import org.ejemplo.exception.TurnoException;
 import org.ejemplo.modelos.Doctor;
 import org.ejemplo.modelos.Paciente;
 import org.ejemplo.modelos.Turno;
+import org.ejemplo.modelos.dto.TurnoDto;
 import org.ejemplo.repository.TurnoRepository;
 import org.ejemplo.validations.TurnoValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +39,18 @@ public class TurnoService {
     }
 
 
-    public static String guardarTurno(Turno turno) throws TurnoException {
+    public static String guardarTurno(TurnoDto turnoDto) throws TurnoException {
+
+
+        Turno turno = new Turno();
+        turno.setDoctor(new Doctor(Long.parseLong(turnoDto.getDoctor_id())));
+        turno.setPaciente(new Paciente(Long.parseLong(turnoDto.getPaciente_id())));
+        turno.setFechaTurno(turnoDto.getFechaTurno());
         TurnoValidations.validateTurnoForCreation(turnos, turno);
+        Date hoy = new Date();
+        turno.setFechaGuardado(hoy.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime());
         turnoRepository.save(turno);
         return "Turno cargado correctamente";
     }

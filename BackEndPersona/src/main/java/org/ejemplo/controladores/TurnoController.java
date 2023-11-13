@@ -2,6 +2,7 @@ package org.ejemplo.controladores;
 import lombok.extern.slf4j.Slf4j;
 import org.ejemplo.exception.TurnoException;
 import org.ejemplo.modelos.Turno;
+import org.ejemplo.modelos.dto.TurnoDto;
 import org.ejemplo.servicios.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,10 @@ public class TurnoController {
 
 
     @PostMapping("/createTurno")
-    public ResponseEntity<String> createTurno(@RequestBody Turno turno) {
+    public ResponseEntity<String> createTurno(@RequestBody TurnoDto turno) {
         try{
             String respuesta = turnoService.guardarTurno(turno);
-            log.info("Turno creado de forma correcta {}", turno.getId());
+            log.info("Turno creado de forma correcta");
             return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
         } catch (TurnoException e){
             log.warn("No se esta cumpliendo con las validaciones. Turno a crear: {}", turno);
